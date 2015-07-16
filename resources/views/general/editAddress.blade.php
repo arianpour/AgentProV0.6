@@ -1,5 +1,7 @@
-@extends('app')
-@section('content')
+@extends ('layouts.dashboard')
+@section('page_heading','Edit Address')
+
+@section('section')
 
 	<h1>Editing " {{ $client->name }}  "</h1>
 	<!--TODO: fix the return page by if the pages redirect from owner,Client
@@ -13,26 +15,42 @@
 			@endforeach
 		</div>
 	@endif
-	{!! Form::model($address,
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-lg-6">
+				{{ Form::model($address,
 	['action' => ['AddressController@update', $address->id],
-	'method' => 'post'])
-	!!}
+	'method' => 'post']) }}
+				<div class="form-group">
+					<label>Unit : </label>
+					{{ Form::text('unit', '', ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>Street:  </label>
+					{{ Form::text('street', '', ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>Post Code:  </label>
+					{{ Form::text('postCode', null, ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>City:  </label>
+					{{ Form::text('city', null, ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>State:  </label>
+					{{ Form::text('state', null, ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>country:  </label>
+					{{ Form::text('country', null, ['class' => 'form-control']) }}
+				</div>
 
-	{!! Form::label('unit', 'unit', ['class' => 'control-label']) !!}
-	{!! Form::text('unit', null, ['class' => 'field']) !!}
-	{!! Form::label('street', 'street', ['class' => 'control-label']) !!}
-	{!! Form::text('street', null, ['class' => 'field']) !!}
-	{!! Form::label('postcode', 'post Code', ['class' => 'control-label']) !!}
-	{!! Form::text('postCode', null, ['class' => 'field']) !!}
-	{!! Form::label('city', 'City', ['class' => 'control-label']) !!}
-	{!! Form::text('city', null, ['class' => 'field']) !!}
-	{!! Form::label('state', 'state', ['class' => 'control-label']) !!}
-	{!! Form::text('state', null, ['class' => 'field']) !!}
-	{!! Form::label('country', 'country', ['class' => 'control-label']) !!}
-	{!! Form::text('country', null, ['class' => 'field']) !!}
-	{!! Form::submit('Update address', ['class' => 'button']) !!}
+				{{ Form::submit('Update address', ['class' => 'button']) }}
 
-	{!! Form::close() !!}
-
+				{{ Form::close() }}
+			</div>
+		</div>
+	</div>
 
 @endsection

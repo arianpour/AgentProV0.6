@@ -1,5 +1,7 @@
-@extends('app')
-@section('content')
+@extends ('layouts.dashboard')
+@section('page_heading','Add new Client')
+
+@section('section')
 	<h1>Editing " {{ $client->firstName }} {{ $client->lastName }} "</h1>
 	<p class="lead">Edit and save this Client below, or
 		<a href="{{ action('ClientController@index') }}">go back to all Clients.</a></p>
@@ -11,23 +13,38 @@
 			@endforeach
 		</div>
 	@endif
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-lg-6">
+				{{Form::model($client,
+					['action' => ['ClientController@update', $client],
+				'method' => 'post']) }}
+				<div class="form-group">
+					<label>Name: </label>
+					{{ Form::text('name', '', ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>IC/Passport Number:  </label>
+					{{ Form::text('idNumber', '', ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>Nationality:  </label>
+					{{ Form::select('nationality', ['Malaysia','Singapore'] , 1 , ['class' => 'field']) }}
+				</div>
+				<div class="form-group">
+					<label>Email:  </label>
+					{{ Form::email('email', 'Email', ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>Phone Number:  </label>
+					{{ Form::text('phoneNo', null, ['class' => 'form-control']) }}
+				</div>
 
-	{!! Form::model($client,
-	['action' => ['ClientController@update', $client],
-	'method' => 'post'])
-	!!}
-	{!! Form::label('name', 'Name', ['class' => 'control-label']) !!}
-	{!! Form::text('name', null, ['class' => 'field']) !!}
+				{{ Form::submit('Submit', ['class' => 'button']) }}
 
-	{!! Form::label('idNumber', 'IC/ passport No', ['class' => 'control-label']) !!}
-	{!! Form::text('idNumber', null, ['class' => 'field']) !!}
-	{!! Form::label('Nationality', 'Nationality', ['class' => 'control-label']) !!}
-	{!! Form::select('nationality', ['Malaysia','Singapore'] , null , ['class' => 'field']) !!}
-	{!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
-	{!! Form::email('email', null, ['class' => 'form-control']) !!}
-	{!! Form::label('phone', 'Phone no', ['class' => 'control-label']) !!}
-	{!! Form::text('phoneNo', null, ['class' => 'field']) !!}
-	{!! Form::submit('Update Client', ['class' => 'button']) !!}
-	{!! Form::close() !!}
+				{{ Form::close() }}
+			</div>
+		</div>
+	</div>
 
 @endsection

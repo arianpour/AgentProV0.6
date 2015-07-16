@@ -1,5 +1,7 @@
-@extends('app')
-@section('content')
+@extends ('layouts.dashboard')
+@section('page_heading','Edit Bank Details')
+
+@section('section')
 	<h1>Editing " {{ $client->firstName }} {{ $client->lastName }} "</h1>
 	<p class="lead">Edit and save this Client's Bank details below, or
 		<a href="{{ action('OwnerController@index') }}">go back to all Owners List.</a></p>
@@ -11,17 +13,27 @@
 			@endforeach
 		</div>
 	@endif
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-lg-6">
+				{{ Form::model($bank,
+					['action' => ['BankDetailController@update', $bank],
+						'method' => 'post']) }}
+				<div class="form-group">
+					<label>Unit : </label>
+					{{ Form::text('bankName', null, ['class' => 'form-control']) }}
+				</div>
+				<div class="form-group">
+					<label>Street:  </label>
+					{{ Form::text('accountNo', null, ['class' => 'form-control']) }}
+				</div>
 
-	{!! Form::model($bank,
-	['action' => ['BankDetailController@update', $bank],
-	'method' => 'post'])
-	!!}
-	{!! Form::label('bankName', 'Bank Name', ['class' => 'control-label']) !!}
-	{!! Form::text('bankName', null, ['class' => 'field']) !!}
-	{!! Form::label('accountNo', 'Account Number', ['class' => 'control-label']) !!}
-	{!! Form::text('accountNo', null, ['class' => 'field']) !!}
 
-	{!! Form::submit('Update Bank Details', ['class' => 'button']) !!}
-	{!! Form::close() !!}
+				{{ Form::submit('Update Bank Details', ['class' => 'button']) }}
+
+				{{ Form::close() }}
+			</div>
+		</div>
+	</div>
 
 @endsection
